@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/spacing_twelve">
+
+    <com.kingyon.newslib.views.SquareImageView
+        android:id="@+id/img_news_main"
+        android:layout_width="@dimen/spacing_float_btn"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/spacing_small"
+        android:src="@drawable/img_loading"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/tv_news_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/img_news_main"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="资讯标题"
+        android:textColor="@color/black_normal"
+        android:textSize="@dimen/txt_sub_title" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/img_news_main"
+        android:layout_toLeftOf="@id/img_news_main">
+
+        <include layout="@layout/nl_layout_news_s_cc_t" />
+    </FrameLayout>
+
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--id -->
+    <item name="pre_tv_header_title" type="id" />
+    <item name="pre_v_header_left" type="id" />
+    <item name="pre_rc_list" type="id" />
+    <item name="pre_layout_refresh" type="id" />
+
+    <!--color-->
+    <item name="colorPrimary" type="color" />
+    <item name="colorAccent" type="color" />
+    <item name="background" type="color" />
+
+</resources>
