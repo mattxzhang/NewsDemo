@@ -1,16 +1,17 @@
 package com.kingyon.baseuilib.activities;
 
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.kingyon.baseuilib.entities.CommonEntity;
+import com.kingyon.baseuilib.views.ProgressDialog;
 
 /**
  * Created by arvin on 2016/2/1 17:24.
@@ -63,15 +64,11 @@ public abstract class BaseActivity extends AppCompatActivity{
     public void showProgress(String message) {
         if (progressDialog != null) {
             progressDialog.setMessage(message != null ? message
-                    : "处理中...");
+                    : "");
             progressDialog.show();
         } else {
             progressDialog = new ProgressDialog(BaseActivity.this);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(true);
-            progressDialog.setMessage(message != null ? message
-                    : "处理中...");
+            progressDialog.setMessage(message != null ? message : "");
             progressDialog.show();
         }
     }
