@@ -39,7 +39,8 @@ public class NewsAdapter extends MultiItemTypeAdapter<NewsEntity> {
         }
 
         {//广告模块
-
+            addItemViewDelegate(new AdMainItem());
+            addItemViewDelegate(new AdThreeItem());
         }
     }
 

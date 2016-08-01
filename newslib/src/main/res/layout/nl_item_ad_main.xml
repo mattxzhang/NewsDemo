@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_twelve">
+
+    <TextView
+        android:id="@+id/tv_news_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_small"
+        android:text="资讯标题"
+        android:textColor="@color/black_normal"
+        android:textSize="@dimen/txt_sub_title" />
+
+    <ImageView
+        android:id="@+id/img_news_main"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/spacing_small"
+        android:src="@drawable/img_loading"
+        android:scaleType="centerCrop" />
+
+    <include layout="@layout/nl_layout_news_s_cc_t" />
+
+</LinearLayout>
