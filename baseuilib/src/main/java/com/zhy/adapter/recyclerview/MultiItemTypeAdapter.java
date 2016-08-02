@@ -84,7 +84,10 @@ public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public int getItemCount() {
-        int itemCount = mItems.size();
+        int itemCount = 0;
+        if(mItems!=null){
+            return mItems.size();
+        }
         return itemCount;
     }
 

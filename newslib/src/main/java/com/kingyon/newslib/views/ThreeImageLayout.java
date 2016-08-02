@@ -16,9 +16,9 @@ import com.zhy.adapter.recyclerview.utils.GlideUtils;
  * email：1035407623@qq.com
  */
 public class ThreeImageLayout extends LinearLayout {
-    private SquareImageView img1;
-    private SquareImageView img2;
-    private SquareImageView img3;
+    private EqualWidthImageView img1;
+    private EqualWidthImageView img2;
+    private EqualWidthImageView img3;
 
 
     public ThreeImageLayout(Context context) {
@@ -37,17 +37,17 @@ public class ThreeImageLayout extends LinearLayout {
     private void init() {
         setOrientation(LinearLayout.HORIZONTAL);
 
-        img1 = new SquareImageView(getContext());
+        img1 = new EqualWidthImageView(getContext());
         img1.setScaleType(ImageView.ScaleType.CENTER_CROP);
         img1.setBackgroundResource(R.drawable.img_loading);
         addView(img1, getParams(false));
 
-        img2 = new SquareImageView(getContext());
+        img2 = new EqualWidthImageView(getContext());
         img2.setScaleType(ImageView.ScaleType.CENTER_CROP);
         img2.setBackgroundResource(R.drawable.img_loading);
         addView(img2, getParams(true));
 
-        img3 = new SquareImageView(getContext());
+        img3 = new EqualWidthImageView(getContext());
         img3.setScaleType(ImageView.ScaleType.CENTER_CROP);
         img3.setBackgroundResource(R.drawable.img_loading);
         addView(img3, getParams(false));
@@ -80,7 +80,7 @@ public class ThreeImageLayout extends LinearLayout {
      * @param url1 显示的url
      * @return 返回是未显示的数量
      */
-    private int setImage(SquareImageView img, String url1) {
+    private int setImage(EqualWidthImageView img, String url1) {
         if (TextUtils.isEmpty(url1)) {
             img.setVisibility(View.INVISIBLE);
             return 1;

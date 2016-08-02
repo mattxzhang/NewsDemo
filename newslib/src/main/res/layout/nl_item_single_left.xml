@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/spacing_twelve">
 
-    <com.kingyon.newslib.views.SquareImageView
+    <com.kingyon.newslib.views.EqualWidthImageView
         android:id="@+id/img_news_main"
         android:layout_width="@dimen/spacing_float_btn"
         android:layout_height="wrap_content"

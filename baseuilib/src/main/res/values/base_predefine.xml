@@ -5,6 +5,10 @@
     <item name="pre_v_header_left" type="id" />
     <item name="pre_rc_list" type="id" />
     <item name="pre_layout_refresh" type="id" />
+    <item name="pre_web_view" type="id" />
+    <item name="pre_pager" type="id" />
+    <item name="pre_tab_layout" type="id" />
+
 
     <!--color-->
     <item name="colorPrimary" type="color" />

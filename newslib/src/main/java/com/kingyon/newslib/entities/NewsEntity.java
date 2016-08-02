@@ -15,6 +15,15 @@ public class NewsEntity {
     private String mainImg;
     private List<String> images;
 
+    public NewsEntity() {
+    }
+
+    public NewsEntity(String type, String title, String source) {
+        this.type = type;
+        this.title = title;
+        this.source = source;
+    }
+
     public String getType() {
         return type;
     }

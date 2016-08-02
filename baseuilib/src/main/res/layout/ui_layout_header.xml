@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_app_bar"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@id/pre_v_header_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/img_black_back"
+            android:drawablePadding="@dimen/spacing_four"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/spacing_twelve"
+            android:paddingRight="@dimen/spacing_twelve"
+            android:text="返回"
+            android:textColor="@color/black_normal"
+            android:textSize="@dimen/txt_big_content" />
+
+        <TextView
+            android:id="@id/pre_tv_header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLength="8"
+            android:singleLine="true"
+            android:text="标题"
+            android:textColor="@color/black_normal"
+            android:textSize="@dimen/txt_title" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/ui_layout_divider" />
+</LinearLayout>

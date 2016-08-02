@@ -7,6 +7,7 @@ import com.kingyon.baseuilib.fragments.BaseRefreshFragment;
 import com.kingyon.newslib.R;
 import com.kingyon.newslib.entities.NewsEntity;
 import com.kingyon.newslib.uis.adapters.NewsAdapter;
+import com.kingyon.newslib.utils.NewsTypeUtil;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 /**
@@ -35,7 +36,21 @@ public class NewsFragment extends BaseRefreshFragment<NewsEntity> {
     }
 
     @Override
-    protected void loadData(int index) {
-        mLoadMoreWrapper.notifyDataSetChanged();
+    protected void loadData(final int index) {
+        mRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean hasMore = false;
+                if (index == 0) {
+                    mItems.add(new NewsEntity(NewsTypeUtil.SINGLE_NONE, "资讯标题", "Arvin"));
+                    mItems.add(new NewsEntity(NewsTypeUtil.SINGLE_NONE, "资讯标题", "Arvin"));
+                    mItems.add(new NewsEntity(NewsTypeUtil.SINGLE_NONE, "资讯标题", "Arvin"));
+                    mItems.add(new NewsEntity(NewsTypeUtil.SINGLE_NONE, "资讯标题", "Arvin"));
+                    hasMore = true;
+                    mLoadMoreWrapper.notifyDataSetChanged();
+                }
+                refreshOk(hasMore);
+            }
+        }, 500);
     }
 }

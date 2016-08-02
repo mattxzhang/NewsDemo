@@ -14,15 +14,15 @@
         android:textColor="@color/black_normal"
         android:textSize="@dimen/txt_sub_title" />
 
-    <include layout="@layout/nl_layout_news_s_cc_t" />
-
     <ImageView
         android:id="@+id/img_news_main"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/spacing_small"
+        android:layout_marginBottom="@dimen/spacing_small"
         android:src="@drawable/img_loading"
         android:scaleType="centerCrop" />
+
+    <include layout="@layout/nl_layout_news_s_cc_t" />
 
 </LinearLayout>
