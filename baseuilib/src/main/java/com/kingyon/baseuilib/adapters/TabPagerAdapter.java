@@ -13,11 +13,11 @@ import java.util.List;
  * Created by arvin on 2016/2/4 15:26
  * .
  */
-public class TabPagerAdapter extends FragmentStatePagerAdapter {
-    private List<TabPagerEntity> mList;
+public class TabPagerAdapter<T> extends FragmentStatePagerAdapter {
+    private List<T> mList;
     private ITabPager mTabPagerListener;
 
-    public TabPagerAdapter(FragmentManager fm, List<TabPagerEntity> list, ITabPager pagerItemListener) {
+    public TabPagerAdapter(FragmentManager fm, List<T> list, ITabPager pagerItemListener) {
         super(fm);
         this.mList = list;
         this.mTabPagerListener = pagerItemListener;
@@ -25,7 +25,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mList.get(position).getTitle();
+        return mTabPagerListener.getTitle(position);
     }
 
     @Override

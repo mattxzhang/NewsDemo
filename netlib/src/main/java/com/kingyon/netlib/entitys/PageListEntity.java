@@ -1,0 +1,19 @@
+package com.kingyon.netlib.entitys;
+
+import java.util.List;
+
+/**
+ * created by arvin on 16/8/3 14:48
+ * email：1035407623@qq.com
+ */
+public class PageListEntity <T> {
+    private List<T> content;
+
+    public List<T> getContent() {
+        return content;
+    }
+
+    public void setContent(List<T> content) {
+        this.content = content;
+    }
+}

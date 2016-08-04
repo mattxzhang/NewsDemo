@@ -1,6 +1,7 @@
 package com.kingyon.netlib.callback;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.ParseException;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 import com.google.gson.JsonParseException;
 import com.kingyon.netlib.exception.ApiException;
 import com.kingyon.netlib.exception.ResultException;
+import com.kingyon.netlib.utils.ActivityUtil;
 
 import org.json.JSONException;
 
@@ -77,7 +79,7 @@ public abstract class AbsAPICallback<T> extends Subscriber<T> {
             ex.setDisplayMessage(resultException.getMessage());
             if (ex.getCode() == ApiException.RE_LOGIN) {
                 try {
-                    Activity currentActivity = getCurrentActivity();
+                    Context currentActivity = ActivityUtil.getCurrentActivity();
                     if (currentActivity != null) {
                         Intent intent = new Intent(currentActivity, Class.forName("com.kingyon.fanleme.reglogin.activitys.LoginActivity"));
                         currentActivity.startActivity(intent);
@@ -100,36 +102,6 @@ public abstract class AbsAPICallback<T> extends Subscriber<T> {
             onError(ex);
         }
     }
-
-    /**
-     * 获取当前显示的Activity
-     *
-     * @return 当前Activity
-     */
-    public static Activity getCurrentActivity() {
-        try {
-            Class activityThreadClass = Class.forName("android.app.ActivityThread");
-            Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
-            Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
-            activitiesField.setAccessible(true);
-            Map activities = (Map) activitiesField.get(activityThread);
-            for (Object activityRecord : activities.values()) {
-                Class activityRecordClass = activityRecord.getClass();
-                Field pausedField = activityRecordClass.getDeclaredField("paused");
-                pausedField.setAccessible(true);
-                if (!pausedField.getBoolean(activityRecord)) {
-                    Field activityField = activityRecordClass.getDeclaredField("activity");
-                    activityField.setAccessible(true);
-                    Activity activity = (Activity) activityField.get(activityRecord);
-                    return activity;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 
     /**
      * http,解析错误回调

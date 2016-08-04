@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_subscribe"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/spacing_avatar"
+    android:minWidth="72dp"
+    android:paddingBottom="@dimen/spacing_four"
+    android:paddingTop="@dimen/spacing_four">
+
+    <TextView
+        android:id="@+id/text_item"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/spacing_avatar"
+        android:layout_centerInParent="true"
+        android:background="@drawable/nl_column_item_bg"
+        android:gravity="center"
+        android:minWidth="72dp"
+        android:paddingLeft="@dimen/spacing_default"
+        android:paddingRight="@dimen/spacing_small"
+        android:singleLine="true"
+        android:text="Fintech"
+        android:textColor="@drawable/nl_column_item_text_color"
+        android:textSize="@dimen/txt_normal_content" />
+</RelativeLayout>

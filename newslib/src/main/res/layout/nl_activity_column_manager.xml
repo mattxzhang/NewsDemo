@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".uis.activities.ColumnManagerActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_app_bar"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@id/pre_v_header_left"
+            android:layout_width="wrap_content"
+            android:background="@drawable/ui_white_alpha_click"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/img_white_back"
+            android:drawablePadding="@dimen/spacing_four"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/spacing_twelve"
+            android:paddingRight="@dimen/spacing_twelve"
+            android:text="返回"
+            android:textColor="@color/white_normal"
+            android:textSize="@dimen/txt_big_content" />
+
+        <TextView
+            android:id="@id/pre_tv_header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLength="8"
+            android:singleLine="true"
+            android:text="标题"
+            android:textColor="@color/white_normal"
+            android:textSize="@dimen/txt_title" />
+
+        <TextView
+            android:id="@+id/tv_header_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ui_white_alpha_click"
+            android:gravity="center"
+            android:paddingRight="@dimen/spacing_default"
+            android:paddingLeft="@dimen/spacing_default"
+            android:text="保存"
+            android:textColor="@color/white_normal"
+            android:textSize="@dimen/txt_big_content" />
+    </RelativeLayout>
+
+    <include layout="@layout/ui_layout_divider"/>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        s<LinearLayout
+            android:id="@+id/subscribe_main_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="14.0dip">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_default">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:text="我的栏目"
+                    android:textColor="@color/black_normal"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="长按拖动顺序/点击删除栏目"
+                    android:textColor="@color/black_hint" />
+
+            </LinearLayout>
+
+            <com.kingyon.newslib.views.DragGridView
+                android:id="@+id/gv_subscribe"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dip"
+                android:layout_marginLeft="14dip"
+                android:layout_marginRight="14dip"
+                android:gravity="center"
+                android:horizontalSpacing="10dip"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="4"
+                android:scrollbars="vertical"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10.0px" />
+
+            <include layout="@layout/ui_layout_divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_default">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:text="更多栏目"
+                    android:textColor="@color/black_normal"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="点击添加栏目"
+                    android:textColor="@color/black_hint" />
+
+            </LinearLayout>
+
+            <com.kingyon.newslib.views.ScrollGridView
+                android:id="@+id/sgv_not_subscribe"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_default"
+                android:layout_marginLeft="@dimen/spacing_twelve"
+                android:layout_marginRight="@dimen/spacing_twelve"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/spacing_small"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="4"
+                android:scrollbars="vertical"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="@dimen/spacing_small" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

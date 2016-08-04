@@ -11,6 +11,7 @@ android {
         targetSdkVersion globalConfig.targetSdkVersion as int
         versionCode globalConfig.versionCode as int
         versionName globalConfig.versionName as String
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -24,6 +25,6 @@ dependencies {
     def googleDependencies = rootProject.ext.dependencies.googleSupportVersion
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile "com.android.support:appcompat-v7:${googleDependencies}"
+    compile 'com.android.support:multidex:1.0.1'
     compile project(':newslib')
 }

@@ -2,10 +2,12 @@ package com.kingyon.baseuilib.entities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.kingyon.baseuilib.utils.CommonUtil;
 
 /**
  * Created by arvin on 2016/2/1 17:31.
@@ -40,25 +42,21 @@ public class CommonEntity {
         mContext = null;
     }
 
-//    public void startActivityWithAnim(Class target) {
-//        AFUtils.startActivityWithAnim(mContext, null, target);
-//    }
-//
-//    public void startActivityWithAnim(Class target, Bundle data) {
-//        AFUtils.startActivityWithAnim(mContext, data, target);
-//    }
-//
-//    public void startActivityForResultWithAnim(Class target, int requestCode) {
-//        AFUtils.startActivityForResultWithAnim(mContext, null, requestCode, target);
-//    }
-//
-//    public void startActivityForResultWithAnim(Class target, Bundle data, int requestCode) {
-//        AFUtils.startActivityForResultWithAnim(mContext, data, requestCode, target);
-//    }
-//
-//    public void finishWithAnim() {
-//        AFUtils.finishWithAnim(mContext);
-//    }
+    public void startActivityWithAnim(Class target) {
+        CommonUtil.startActivityWithAnim(mContext, null, target);
+    }
+
+    public void startActivityWithAnim(Class target, Bundle data) {
+        CommonUtil.startActivityWithAnim(mContext, data, target);
+    }
+
+    public void startActivityForResultWithAnim(Class target, int requestCode) {
+        CommonUtil.startActivityForResultWithAnim((Activity) mContext, null, requestCode, target);
+    }
+
+    public void startActivityForResultWithAnim(Class target, Bundle data, int requestCode) {
+        CommonUtil.startActivityForResultWithAnim((Activity) mContext, data, requestCode, target);
+    }
 
     public void showToast(String message) {
         if (message == null) {

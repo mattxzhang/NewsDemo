@@ -7,5 +7,7 @@ import android.support.v4.app.Fragment;
  * .
  */
 public interface ITabPager {
-    public Fragment getItem(int position);
+    Fragment getItem(int position);
+
+    String getTitle(int position);
 }

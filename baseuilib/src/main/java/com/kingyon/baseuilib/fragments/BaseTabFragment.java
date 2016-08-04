@@ -18,40 +18,41 @@ import java.util.List;
  * created by arvin on 16/8/2 14:55
  * email：1035407623@qq.com
  */
-public abstract class BaseTabFragment extends BaseHeaderFragment implements ITabPager,ViewPager.OnPageChangeListener{
+public abstract class BaseTabFragment<T> extends BaseFragment implements ITabPager,ViewPager.OnPageChangeListener{
     protected PagerSlidingTabStrip mTabLayout;
     protected ViewPager mPager;
-    protected List<TabPagerEntity> mItems;
+    protected ArrayList<T> mItems;
     protected TabPagerAdapter mAdapter;
     protected int selectedIndex = -1;
     private final int cachePageSize = 7;
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        super.init(savedInstanceState);
         mPager = getView(R.id.pre_pager);
         mTabLayout = getView(R.id.pre_tab_layout);
         initTab();
-
         mItems = new ArrayList<>();
-
         getData();
     }
 
     protected void initTab(){
         mTabLayout.setTextColor(getTabTextColor());
         mTabLayout.setSelectedTextColorResource(getSelectedTabTextColor());
-        mTabLayout.setIndicatorColorResource(getSelectedTabTextColor());
+        mTabLayout.setIndicatorColorResource(getIndicatorTextColor());
         mTabLayout.setIndicatorHeight(ScreenUtil.dp2px(2));
         mTabLayout.setUnderlineColor(Color.TRANSPARENT);
+    }
+
+    protected int getTabTextColor() {
+        return R.color.black_normal;
     }
 
     protected int getSelectedTabTextColor() {
         return R.color.colorAccent;
     }
 
-    protected int getTabTextColor() {
-        return R.color.black_normal;
+    private int getIndicatorTextColor() {
+        return R.color.colorAccent;
     }
 
     protected void initPager(){
