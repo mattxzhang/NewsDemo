@@ -21,7 +21,7 @@ import com.kingyon.baseuilib.views.ProgressWebView;
  * Created by arvin on 2016/2/16 14:32
  * .
  */
-public abstract class BaseHtmlActivity extends BaseHeaderActivity {
+public abstract class BaseHtmlActivity extends BaseSwipeBackActivity {
     private final String UP_FILE_TAG = "UP_FILE";
     public static final String TITLE = "title";
     public static final String URL = "url";

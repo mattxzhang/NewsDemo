@@ -11,7 +11,7 @@ import com.zhy.adapter.recyclerview.utils.WrapperUtils;
 
 
 /**
- * Created by zhy on 16/6/23.
+ * Created by zhy on 16/6/23
  */
 public class HeaderAndFooterWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {

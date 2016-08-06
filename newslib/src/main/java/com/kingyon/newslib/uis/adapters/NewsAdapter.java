@@ -3,9 +3,8 @@ package com.kingyon.newslib.uis.adapters;
 import android.content.Context;
 
 import com.kingyon.newslib.R;
-import com.kingyon.newslib.entities.NewsEntity;
+import com.kingyon.newslib.greendao.entities.NewsEntity;
 import com.kingyon.newslib.utils.NewsTypeUtil;
-import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class NewsAdapter extends MultiItemTypeAdapter<NewsEntity> {
         {//单图模块
             addItemViewDelegate(new SingleItem(R.layout.nl_item_single_left, NewsTypeUtil.SINGLE_LEFT));
             addItemViewDelegate(new SingleItem(R.layout.nl_item_single_right, NewsTypeUtil.SINGLE_RIGHT));
-            addItemViewDelegate(new SingleItem(R.layout.nl_item_single_top, NewsTypeUtil.SINGLE_Top));
+            addItemViewDelegate(new SingleItem(R.layout.nl_item_single_top, NewsTypeUtil.SINGLE_TOP));
             addItemViewDelegate(new SingleItem(R.layout.nl_item_single_bottom, NewsTypeUtil.SINGLE_BOTTOM));
             addItemViewDelegate(new SingleItem(R.layout.nl_item_single_top, NewsTypeUtil.SINGLE_NONE));
 

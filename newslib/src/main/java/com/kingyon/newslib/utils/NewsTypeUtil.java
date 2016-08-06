@@ -13,7 +13,7 @@ public class NewsTypeUtil {
     //单右
     public static final String SINGLE_RIGHT =" 101";
     //单上
-    public static final String SINGLE_Top =" 102";
+    public static final String SINGLE_TOP =" 102";
     //单下
     public static final String SINGLE_BOTTOM =" 103";
     //单无

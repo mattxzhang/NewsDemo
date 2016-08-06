@@ -18,13 +18,13 @@ import java.util.List;
  * created by arvin on 16/8/2 14:55
  * email：1035407623@qq.com
  */
-public abstract class BaseTabFragment<T> extends BaseFragment implements ITabPager,ViewPager.OnPageChangeListener{
+public abstract class BaseTabFragment<T> extends BaseFragment implements ITabPager, ViewPager.OnPageChangeListener {
     protected PagerSlidingTabStrip mTabLayout;
     protected ViewPager mPager;
     protected ArrayList<T> mItems;
     protected TabPagerAdapter mAdapter;
     protected int selectedIndex = -1;
-    private final int cachePageSize = 7;
+    private final int cachePageSize = 5;
 
     @Override
     protected void init(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public abstract class BaseTabFragment<T> extends BaseFragment implements ITabPag
         getData();
     }
 
-    protected void initTab(){
+    protected void initTab() {
         mTabLayout.setTextColor(getTabTextColor());
         mTabLayout.setSelectedTextColorResource(getSelectedTabTextColor());
         mTabLayout.setIndicatorColorResource(getIndicatorTextColor());
@@ -55,13 +55,13 @@ public abstract class BaseTabFragment<T> extends BaseFragment implements ITabPag
         return R.color.colorAccent;
     }
 
-    protected void initPager(){
-        if(mItems==null||mItems.size()==0){
-            return ;
+    protected void initPager() {
+        if (mItems == null || mItems.size() == 0) {
+            return;
         }
-        mAdapter = new TabPagerAdapter(getChildFragmentManager(),mItems,this);
+        mAdapter = new TabPagerAdapter(getChildFragmentManager(), mItems, this);
         mPager.setAdapter(mAdapter);
-        mPager.setOffscreenPageLimit(mItems.size()< cachePageSize ?mItems.size(): cachePageSize);
+        mPager.setOffscreenPageLimit(mItems.size() < cachePageSize ? mItems.size() : cachePageSize);
         mTabLayout.setViewPager(mPager);
         mTabLayout.setOnPageChangeListener(this);
     }

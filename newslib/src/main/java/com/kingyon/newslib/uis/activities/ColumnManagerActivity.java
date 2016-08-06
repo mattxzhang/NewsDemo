@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingyon.baseuilib.activities.BaseHeaderActivity;
+import com.kingyon.baseuilib.activities.BaseSwipeBackActivity;
 import com.kingyon.baseuilib.utils.ConstantUtil;
 import com.kingyon.netlib.callback.AbsAPICallback;
 import com.kingyon.netlib.entitys.PageListEntity;
@@ -32,7 +33,7 @@ import java.util.List;
  * created by arvin on 16/8/4 11:03
  * email：1035407623@qq.com
  */
-public class ColumnManagerActivity extends BaseHeaderActivity implements View.OnClickListener {
+public class ColumnManagerActivity extends BaseSwipeBackActivity implements View.OnClickListener {
     private DragGridView gvSubscribe;
     private SubScribeDragAdapter subscribeAdapter;
     private ArrayList<ColumnEntity> subscribeList = new ArrayList<>();

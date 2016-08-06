@@ -151,8 +151,6 @@ public class ColumnEntity implements Parcelable {
     }
 
     // KEEP METHODS - put your custom methods here
-    // KEEP METHODS END
-
     @Override
     public int describeContents() {
         return 0;
@@ -200,4 +198,5 @@ public class ColumnEntity implements Parcelable {
             return new ColumnEntity[size];
         }
     };
+    // KEEP METHODS END
 }

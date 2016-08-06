@@ -43,19 +43,27 @@ public class CommonEntity {
     }
 
     public void startActivityWithAnim(Class target) {
-        CommonUtil.startActivityWithAnim(mContext, null, target);
+        if (mContext instanceof Activity) {
+            CommonUtil.startActivityWithAnim((Activity) mContext, null, target);
+        }
     }
 
     public void startActivityWithAnim(Class target, Bundle data) {
-        CommonUtil.startActivityWithAnim(mContext, data, target);
+        if (mContext instanceof Activity) {
+            CommonUtil.startActivityWithAnim((Activity) mContext, data, target);
+        }
     }
 
     public void startActivityForResultWithAnim(Class target, int requestCode) {
-        CommonUtil.startActivityForResultWithAnim((Activity) mContext, null, requestCode, target);
+        if (mContext instanceof Activity) {
+            CommonUtil.startActivityForResultWithAnim((Activity) mContext, null, requestCode, target);
+        }
     }
 
     public void startActivityForResultWithAnim(Class target, Bundle data, int requestCode) {
-        CommonUtil.startActivityForResultWithAnim((Activity) mContext, data, requestCode, target);
+        if (mContext instanceof Activity) {
+            CommonUtil.startActivityForResultWithAnim((Activity) mContext, data, requestCode, target);
+        }
     }
 
     public void showToast(String message) {

@@ -8,11 +8,15 @@ import android.view.View;
 
 import com.kingyon.baseuilib.R;
 import com.kingyon.baseuilib.fragments.BaseFragment;
+import com.kingyon.refresh.loadmore.OnLoadMoreListener;
+import com.kingyon.refresh.loadmore.SwipeRefreshHelper;
+import com.kingyon.refresh.recyclerview.RecyclerAdapterWithHF;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.EmptyWrapper;
 import com.zhy.adapter.recyclerview.wrapper.LoadMoreWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,15 +24,17 @@ import java.util.List;
  * Attention please!Using this class must make contentView add "<include layout="@layout/ui_layout_refresh"/>" or
  * define by yourself,but also must include SwipeRefreshLayout(id must be pre_layout_refresh) and RecyclerView(id must be pre_rc_list).
  */
-public abstract class BaseRefreshActivity<T> extends BaseHeaderActivity implements SwipeRefreshLayout.OnRefreshListener,MultiItemTypeAdapter.OnItemClickListener {
+public abstract class BaseRefreshActivity<T> extends BaseSwipeBackActivity implements SwipeRefreshHelper.OnSwipeRefreshListener, OnLoadMoreListener,
+        MultiItemTypeAdapter.OnItemClickListener {
     protected SwipeRefreshLayout mRefreshLayout;
     protected RecyclerView mRecyclerView;
-    protected MultiItemTypeAdapter<T> mAdapter;
+    protected SwipeRefreshHelper mSwipeRefreshHelper;
 
+    protected MultiItemTypeAdapter<T> mInnerAdapter;
     protected EmptyWrapper mEmptyWrapper;
-    protected LoadMoreWrapper mLoadMoreWrapper;
+    protected RecyclerAdapterWithHF mAdapter;
 
-    protected List<T> mItems;
+    protected List<T> mItems = new ArrayList<>();
     protected int mCurrPage;
 
     protected void resetCurrPage() {
@@ -53,13 +59,16 @@ public abstract class BaseRefreshActivity<T> extends BaseHeaderActivity implemen
 
         mRecyclerView.setLayoutManager(getLayoutManager());
         initAdapter();
-        mRecyclerView.setAdapter(mLoadMoreWrapper);
-        mRefreshLayout.setOnRefreshListener(this);
+        mRecyclerView.setAdapter(mAdapter);
+
+        mSwipeRefreshHelper = new SwipeRefreshHelper(mRefreshLayout);
+        mSwipeRefreshHelper.setOnSwipeRefreshListener(this);
+        mSwipeRefreshHelper.setOnLoadMoreListener(this);
 
         mRefreshLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mRefreshLayout.setRefreshing(true);
+                mSwipeRefreshHelper.autoRefresh();
             }
         }, 500);
     }
@@ -80,27 +89,19 @@ public abstract class BaseRefreshActivity<T> extends BaseHeaderActivity implemen
     }
 
     private void initAdapter() {
-        mAdapter = getAdapter();
-        mAdapter.setOnItemClickListener(this);
+        mInnerAdapter = getAdapter();
+        mInnerAdapter.setOnItemClickListener(this);
         initEmptyView();
         initLoadMoreView();
     }
 
     private void initEmptyView() {
-        mEmptyWrapper = new EmptyWrapper(mAdapter);
+        mEmptyWrapper = new EmptyWrapper(mInnerAdapter);
         mEmptyWrapper.setEmptyView(mUtil.getInflater().inflate(getEmptyViewId(), mRecyclerView, false));
     }
 
     private void initLoadMoreView() {
-        mLoadMoreWrapper = new LoadMoreWrapper(mEmptyWrapper);
-        mLoadMoreWrapper.setLoadMoreView(mUtil.getInflater().inflate(getLoadMoreViewId(), mRecyclerView, false));
-
-        mLoadMoreWrapper.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                loadData(++mCurrPage);
-            }
-        });
+        mAdapter = new RecyclerAdapterWithHF(mEmptyWrapper);
     }
 
     @Override
@@ -109,8 +110,20 @@ public abstract class BaseRefreshActivity<T> extends BaseHeaderActivity implemen
         loadData(mCurrPage);
     }
 
-    protected void refreshOk() {
-        mRefreshLayout.setRefreshing(false);
+    @Override
+    public void loadMore() {
+        loadData(++mCurrPage);
+    }
+
+    protected void refreshOk(boolean hasMore) {
+        if (!hasMore && mCurrPage > 0) {
+            mCurrPage--;
+        }
+        mSwipeRefreshHelper.refreshComplete();
+        mSwipeRefreshHelper.setLoadMoreEnable(mItems.size() >= 8);
+        if (mCurrPage > 0) {
+            mSwipeRefreshHelper.loadMoreComplete(true);
+        }
     }
 
     @Override
@@ -119,13 +132,13 @@ public abstract class BaseRefreshActivity<T> extends BaseHeaderActivity implemen
 
     protected abstract int getEmptyViewId();
 
-    protected abstract int getLoadMoreViewId();
-
     protected abstract MultiItemTypeAdapter<T> getAdapter();
 
     /**
-     * 加载完后使用mLoadMoreWrapper.notifyDataSetChanged(); 刷新列表
+     * 加载完后使用mAdapter.notifyDataSetChanged(); 刷新列表
+     *
      * @param page 加载第几页的数据
      */
     protected abstract void loadData(int page);
 }
+

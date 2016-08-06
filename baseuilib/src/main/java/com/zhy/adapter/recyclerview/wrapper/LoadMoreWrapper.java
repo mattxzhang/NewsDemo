@@ -5,28 +5,32 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.kingyon.baseuilib.R;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.adapter.recyclerview.utils.WrapperUtils;
 
 
 /**
- * Created by zhy on 16/6/23.
+ * Created by zhy on 16/6/23
  */
 public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int ITEM_TYPE_LOAD_MORE = Integer.MAX_VALUE - 2;
+    public static final int ITEM_TYPE_LOAD_FALSE = Integer.MAX_VALUE - 3;
+
 
     private RecyclerView.Adapter mInnerAdapter;
     private View mLoadMoreView;
     private int mLoadMoreLayoutId;
-    private boolean noMoreData = false;
+    private boolean hasMoreData = false;
 
     public LoadMoreWrapper(RecyclerView.Adapter adapter) {
         mInnerAdapter = adapter;
     }
 
     private boolean hasLoadMore() {
-        return mLoadMoreView != null || mLoadMoreLayoutId != 0;
+        return (mLoadMoreView != null || mLoadMoreLayoutId != 0) && hasMoreData;
     }
 
     private boolean isShowLoadMore(int position) {
@@ -42,7 +46,7 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
         if (viewType == ITEM_TYPE_LOAD_MORE) {
             ViewHolder holder;
             if (mLoadMoreView != null) {
@@ -50,6 +54,18 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
             } else {
                 holder = ViewHolder.createViewHolder(parent.getContext(), parent, mLoadMoreLayoutId);
             }
+//            TextView tvLoad = holder.getView(R.id.tv_load);
+//            if (hasMoreData) {
+//                tvLoad.setText("加载中...");
+//            } else {
+//                tvLoad.setText("点击加载更多!");
+//            }
+//            tvLoad.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    loadMore();
+//                }
+//            });
             return holder;
         }
         return mInnerAdapter.onCreateViewHolder(parent, viewType);
@@ -58,12 +74,16 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (isShowLoadMore(position)) {
-            if (mOnLoadMoreListener != null) {
-                mOnLoadMoreListener.onLoadMoreRequested();
-            }
+            loadMore();
             return;
         }
         mInnerAdapter.onBindViewHolder(holder, position);
+    }
+
+    private void loadMore() {
+        if (mOnLoadMoreListener != null && hasMoreData) {
+            mOnLoadMoreListener.onLoadMoreRequested();
+        }
     }
 
     @Override
@@ -108,8 +128,8 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
         return mInnerAdapter.getItemCount() + (hasLoadMore() ? 1 : 0);
     }
 
-    public void noMoreData() {
-        noMoreData = true;
+    public void setHasMoreData(boolean hasMoreData) {
+        this.hasMoreData = hasMoreData;
     }
 
     public interface OnLoadMoreListener {

@@ -29,7 +29,7 @@ public class ColumnService {
         initColumnDao();
     }
 
-    public void onDestroy(){
+    public void onDestroy() {
         mContext = null;
         columnEntityDao = null;
     }
@@ -42,12 +42,14 @@ public class ColumnService {
     }
 
     private void initColumnDao() {
+        if (columnEntityDao != null) {
+            return;
+        }
         this.columnEntityDao = DaoUtils.getInstance().getSession(mContext).getColumnEntityDao();
     }
 
-    public Observable<PageListEntity<ColumnEntity>> getColumns(final boolean hasLocalData){
-        return NewsNetCloud.getInstance().getNewsApi().getItems(0,99).observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+    public Observable<PageListEntity<ColumnEntity>> getColumns(final boolean hasLocalData) {
+        return NewsNetCloud.getInstance().getNewsApi().getItems(0, 99)
                 .map(new Func1<PageListEntity<ColumnEntity>, PageListEntity<ColumnEntity>>() {
                     @Override
                     public PageListEntity<ColumnEntity> call(PageListEntity<ColumnEntity> data) {
@@ -59,7 +61,7 @@ public class ColumnService {
                         }
                         return data;
                     }
-                });
+                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
 
@@ -67,6 +69,9 @@ public class ColumnService {
      * @return 获取已订阅的资讯栏目
      */
     public List<ColumnEntity> getSubscribeList() {
+        if (getColumnEntityDao() == null) {
+            return new ArrayList<>();
+        }
         return columnEntityDao.queryBuilder().where(ColumnEntityDao.Properties.IsOrder.eq(true))
                 .orderAsc(ColumnEntityDao.Properties.ItemWeight).list();
     }
@@ -75,6 +80,9 @@ public class ColumnService {
      * @return 获取未订阅的资讯栏目
      */
     public List<ColumnEntity> getNotSubscribeList() {
+        if (getColumnEntityDao() == null) {
+            return new ArrayList<>();
+        }
         return columnEntityDao.queryBuilder().where(ColumnEntityDao.Properties.IsOrder.eq(false))
                 .orderAsc(ColumnEntityDao.Properties.ItemWeight).list();
     }
@@ -84,7 +92,11 @@ public class ColumnService {
      *
      * @param content 后台数据
      */
-    public void updateAll(List<ColumnEntity> content) {
+    public boolean updateAll(List<ColumnEntity> content) {
+        if (getColumnEntityDao() == null) {
+            return false;
+        }
+
         List<ColumnEntity> all = getAll();
 
         {//删除客户端多余的数据
@@ -120,36 +132,49 @@ public class ColumnService {
                 }
             }
         }
+        return true;
     }
 
     /**
      * @return 获取所有资讯栏目
      */
     public List<ColumnEntity> getAll() {
+        if (getColumnEntityDao() == null) {
+            return new ArrayList<>();
+        }
+
         return columnEntityDao.queryBuilder().list();
     }
 
     /**
      * @param entity 更新数据
      */
-    public void update(ColumnEntity entity) {
+    public boolean update(ColumnEntity entity) {
+        if (getColumnEntityDao() == null) {
+            return false;
+        }
         columnEntityDao.update(entity);
+        return true;
     }
 
     /**
      * @param entity 插入数据
      */
-    public void insert(ColumnEntity entity) {
-        columnEntityDao.insert(entity);
+    public boolean insert(ColumnEntity entity) {
+        if (getColumnEntityDao() == null) {
+            return false;
+        }
+        columnEntityDao.insertOrReplace(entity);
+        return true;
     }
 
     /**
      * @param content 要插入的数据
      * @return 返回订阅的资讯栏目
      */
-    public List<ColumnEntity> insert(List<ColumnEntity> content) {
-        if (content == null) {
-            return new ArrayList<>();
+    public boolean insert(List<ColumnEntity> content) {
+        if (getColumnEntityDao() == null) {
+            return false;
         }
         List<ColumnEntity> orderList = new ArrayList<>();
         for (int i = 0; i < content.size(); i++) {
@@ -161,13 +186,13 @@ public class ColumnService {
                 entity.setItemWeight(i - 13 + 1);
                 entity.setIsOrder(false);
             }
-            columnEntityDao.insert(entity);
+            columnEntityDao.insertOrReplace(entity);
         }
-        return orderList;
+        return true;
     }
 
     /**
-     * @return 在没有数据,插入时判断是否是订阅的,不优雅,应该后台给定一个字段来判断
+     * @return 在没有数据, 插入时判断是否是订阅的, 不优雅, 应该后台给定一个字段来判断
      */
     public static boolean isOrderEntity(ColumnEntity entity, int pos) {
         return pos < 13;
@@ -176,8 +201,12 @@ public class ColumnService {
     /**
      * @param columnEntity 删除数据
      */
-    public void delete(ColumnEntity columnEntity) {
+    public boolean delete(ColumnEntity columnEntity) {
+        if (getColumnEntityDao() == null) {
+            return false;
+        }
         columnEntityDao.delete(columnEntity);
+        return true;
     }
 
 }

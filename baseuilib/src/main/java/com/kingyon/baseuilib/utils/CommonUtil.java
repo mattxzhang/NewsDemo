@@ -11,6 +11,8 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.kingyon.baseuilib.R;
+
 import java.lang.reflect.Field;
 import java.text.DecimalFormat;
 import java.util.Map;
@@ -97,12 +99,13 @@ public class CommonUtil {
         return versionName;
     }
 
-    public static void startActivityWithAnim(Context mContext, Bundle data, Class target) {
-        Intent intent = new Intent(mContext, target);
+    public static void startActivityWithAnim(Activity activity, Bundle data, Class target) {
+        Intent intent = new Intent(activity, target);
         if (data != null) {
             intent.putExtras(data);
         }
-        mContext.startActivity(intent);
+        activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.ui_right_in,0);
     }
 
     public static void startActivityForResultWithAnim(Activity activity, Bundle data, int requestCode, Class target) {
@@ -111,5 +114,6 @@ public class CommonUtil {
             intent.putExtras(data);
         }
         activity.startActivityForResult(intent, requestCode);
+        activity.overridePendingTransition(R.anim.ui_right_in,0);
     }
 }
