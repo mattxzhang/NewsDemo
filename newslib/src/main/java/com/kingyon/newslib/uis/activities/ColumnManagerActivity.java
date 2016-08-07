@@ -29,6 +29,11 @@ import com.kingyon.newslib.views.ScrollGridView;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+
 /**
  * created by arvin on 16/8/4 11:03
  * email：1035407623@qq.com
@@ -86,22 +91,29 @@ public class ColumnManagerActivity extends BaseSwipeBackActivity implements View
     }
 
     private void getItems() {
-        columnService.getColumns(subscribeList.size() > 0).subscribe(new AbsAPICallback<PageListEntity<ColumnEntity>>() {
-            @Override
-            protected void onResultError(ApiException ex) {
-                mUtil.showToast(ex.getDisplayMessage());
-            }
+        columnService.getColumns(subscribeList.size() > 0).
+                observeOn(Schedulers.io()).
+                doOnNext(new Action1<PageListEntity<ColumnEntity>>() {
+                    @Override
+                    public void call(PageListEntity<ColumnEntity> columnEntityPageListEntity) {
+                        subscribeList.clear();
+                        noSubscribeList.clear();
 
-            @Override
-            public void onNext(PageListEntity<ColumnEntity> columnEntityPageListEntity) {
-                subscribeList.clear();
-                noSubscribeList.clear();
+                        subscribeList.addAll(columnService.getSubscribeList());
+                        noSubscribeList.addAll(columnService.getNotSubscribeList());
+                    }
+                }).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new AbsAPICallback<PageListEntity<ColumnEntity>>() {
+                    @Override
+                    protected void onResultError(ApiException ex) {
+                        mUtil.showToast(ex.getDisplayMessage());
+                    }
 
-                subscribeList.addAll(columnService.getSubscribeList());
-                noSubscribeList.addAll(columnService.getNotSubscribeList());
-                setAdapter();
-            }
-        });
+                    @Override
+                    public void onNext(PageListEntity<ColumnEntity> columnEntityPageListEntity) {
+                        setAdapter();
+                    }
+                });
     }
 
     private void setAdapter() {
@@ -148,7 +160,7 @@ public class ColumnManagerActivity extends BaseSwipeBackActivity implements View
             if (position == 0 || isMove) {
                 return;
             }
-            onDragItemClick(true,parent,view,position);
+            onDragItemClick(true, parent, view, position);
         }
     };
 

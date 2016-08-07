@@ -9,6 +9,13 @@ import java.util.List;
 public class PageListEntity <T> {
     private List<T> content;
 
+    public PageListEntity() {
+    }
+
+    public PageListEntity(List<T> content) {
+        this.content = content;
+    }
+
     public List<T> getContent() {
         return content;
     }

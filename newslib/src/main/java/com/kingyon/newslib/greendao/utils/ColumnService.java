@@ -19,6 +19,7 @@ import rx.schedulers.Schedulers;
 /**
  * created by arvin on 16/8/3 15:11
  * email：1035407623@qq.com
+ * 注意:这里边对于数据的获取和更改都是在主线程里边获取的,可优化
  */
 public class ColumnService {
     private ColumnEntityDao columnEntityDao;

@@ -17,6 +17,8 @@ import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.List;
 
+import rx.functions.Action1;
+
 /**
  * Created by arvin on 2016/7/29 16:08
  */
@@ -50,7 +52,15 @@ public class NewsFragment extends BaseRefreshFragment<NewsEntity> {
 
     @Override
     protected MultiItemTypeAdapter<NewsEntity> getAdapter() {
-        mItems.addAll(newsService.getCacheNews(mColumnEntity.getObjectId()));
+        newsService.getObservableCacheNews(mColumnEntity.getObjectId()).subscribe(new Action1<List<NewsEntity>>() {
+            @Override
+            public void call(List<NewsEntity> newsEntities) {
+                if (mItems.size() == 0) {
+                    mItems.addAll(newsEntities);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        });
         return new NewsAdapter(getActivity(), mItems);
     }
 

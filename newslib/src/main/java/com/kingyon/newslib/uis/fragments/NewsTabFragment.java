@@ -70,19 +70,20 @@ public class NewsTabFragment extends BaseTabFragment<ColumnEntity> {
         initPager();
         final boolean hasData = mItems.size() > 0;
 
-        columnService.getColumns(hasData).subscribe(new AbsAPICallback<PageListEntity<ColumnEntity>>() {
-            @Override
-            protected void onResultError(ApiException ex) {
-                mUtil.showToast(ex.getDisplayMessage());
-            }
+        columnService.getColumns(hasData).
+                subscribe(new AbsAPICallback<PageListEntity<ColumnEntity>>() {
+                    @Override
+                    protected void onResultError(ApiException ex) {
+                        mUtil.showToast(ex.getDisplayMessage());
+                    }
 
-            @Override
-            public void onNext(PageListEntity<ColumnEntity> data) {
-                mItems.clear();
-                mItems.addAll(columnService.getSubscribeList());
-                initPager();
-            }
-        });
+                    @Override
+                    public void onNext(PageListEntity<ColumnEntity> data) {
+                        mItems.clear();
+                        mItems.addAll(columnService.getSubscribeList());
+                        initPager();
+                    }
+                });
     }
 
     @Override

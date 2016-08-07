@@ -2,12 +2,9 @@ package com.kingyon.newslib.greendao.utils;
 
 import android.content.Context;
 
-import com.kingyon.netlib.callback.AbsAPICallback;
 import com.kingyon.netlib.entitys.PageListEntity;
-import com.kingyon.netlib.exception.ApiException;
 import com.kingyon.newslib.greendao.entities.AttachmentEntity;
 import com.kingyon.newslib.greendao.entities.AttachmentEntityDao;
-import com.kingyon.newslib.greendao.entities.DaoMaster;
 import com.kingyon.newslib.greendao.entities.NewsEntity;
 import com.kingyon.newslib.greendao.entities.NewsEntityDao;
 import com.kingyon.newslib.greendao.entities.SocialEntity;
@@ -17,11 +14,8 @@ import com.kingyon.newslib.nets.NewsNetCloud;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Retrofit;
 import rx.Observable;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -57,20 +51,29 @@ public class NewsService {
         this.newsEntityDao = DaoUtils.getInstance().getSession(mContext).getNewsEntityDao();
     }
 
+    public Observable<List<NewsEntity>> getObservableCacheNews(long columnId) {
+        return Observable.just(columnId).map(new Func1<Long, List<NewsEntity>>() {
+            @Override
+            public List<NewsEntity> call(Long columnId) {
+                return getCacheNews(columnId);
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
     public List<NewsEntity> getCacheNews(long columnId) {
         if (getNewsEntityDao() == null) {
             return new ArrayList<>();
         }
-        List<NewsEntity> latestNews = newsEntityDao.queryBuilder().orderDesc(NewsEntityDao.Properties.PublishTime).
-                where(NewsEntityDao.Properties.CategoryId.eq(columnId)).list();
+        List<NewsEntity> latestNews = newsEntityDao.queryBuilder().where(NewsEntityDao.Properties.CategoryId.eq(columnId)).list();
 
         AttachmentEntityDao attachmentEntityDao = DaoUtils.getInstance().getSession(mContext).getAttachmentEntityDao();
         SocialEntityDao socialEntityDao = DaoUtils.getInstance().getSession(mContext).getSocialEntityDao();
 
         for (NewsEntity entity : latestNews) {
             //获取主图
-            List<AttachmentEntity> mainImages = attachmentEntityDao.queryBuilder().where(AttachmentEntityDao.Properties.NewsId.eq(entity.getObjectId()),
-                    AttachmentEntityDao.Properties.Type.eq(AttachmentEntity.TYPE_MAIN)).list();
+            List<AttachmentEntity> mainImages = attachmentEntityDao.queryBuilder().
+                    where(AttachmentEntityDao.Properties.NewsId.eq(entity.getObjectId()),
+                            AttachmentEntityDao.Properties.Type.eq(AttachmentEntity.TYPE_MAIN)).list();
             if (mainImages != null && mainImages.size() > 0) {
                 entity.setMainImage(mainImages.get(0));
             }
@@ -121,6 +124,7 @@ public class NewsService {
                 socialEntityDao.insertOrReplace(contentSocial);
             }
             entity.setCategoryId(columnId);
+            newsEntityDao.insertOrReplace(entity);
         }
         return true;
     }
@@ -136,7 +140,8 @@ public class NewsService {
         SocialEntityDao socialEntityDao = DaoUtils.getInstance().getSession(mContext).getSocialEntityDao();
         for (NewsEntity entity : allNews) {
             //删除该资讯的图片
-            List<AttachmentEntity> attachments = attachmentEntityDao.queryBuilder().where(AttachmentEntityDao.Properties.NewsId.eq(entity.getObjectId())).list();
+            List<AttachmentEntity> attachments = attachmentEntityDao.queryBuilder().
+                    where(AttachmentEntityDao.Properties.NewsId.eq(entity.getObjectId())).list();
             if (attachments != null) {
                 for (AttachmentEntity attachment : attachments) {
                     attachmentEntityDao.delete(attachment);
