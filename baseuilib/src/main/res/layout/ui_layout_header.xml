@@ -14,13 +14,13 @@
             android:id="@id/pre_v_header_left"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:drawableLeft="@drawable/img_black_back"
+            android:drawableLeft="@drawable/img_white_back"
             android:drawablePadding="@dimen/spacing_four"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/spacing_twelve"
             android:paddingRight="@dimen/spacing_twelve"
             android:text="返回"
-            android:textColor="@color/black_normal"
+            android:textColor="@color/white_normal"
             android:textSize="@dimen/txt_big_content" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:maxLength="8"
             android:singleLine="true"
             android:text="标题"
-            android:textColor="@color/black_normal"
+            android:textColor="@color/white_normal"
             android:textSize="@dimen/txt_title" />
 
     </RelativeLayout>

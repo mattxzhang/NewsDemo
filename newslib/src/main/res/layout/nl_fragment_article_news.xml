@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_normal"
+    android:orientation="vertical">
+
+    <include layout="@layout/ui_layout_header" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/layout_operate"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_default">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="3dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black_normal"
+                    android:textSize="@dimen/txt_sub_title" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_small"
+                    android:layout_marginTop="@dimen/spacing_small">
+
+                    <TextView
+                        android:id="@+id/tv_source"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/black_secondary"
+                        android:textSize="@dimen/txt_normal_content" />
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text=""
+                        android:textColor="@color/black_secondary"
+                        android:textSize="@dimen/txt_normal_content" />
+                </RelativeLayout>
+
+                <include layout="@layout/ui_layout_divider" />
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:textColor="@color/black_normal"
+                    android:textSize="@dimen/txt_sub_title"
+                    android:lineSpacingExtra="4dp"/>
+
+                <include layout="@layout/nl_layout_about_news" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/layout_operate"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <include layout="@layout/ui_layout_divider" />
+
+            <LinearLayout
+                android:id="@+id/line_tool_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/spacing_small"
+                android:paddingLeft="@dimen/spacing_default"
+                android:paddingRight="@dimen/spacing_default"
+                android:paddingTop="@dimen/spacing_small">
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:id="@+id/tv_comment"
+                    android:layout_height="@dimen/spacing_avatar"
+                    android:layout_weight="1"
+                    android:background="@drawable/nl_edit_bg"
+                    android:gravity="center_vertical"
+                    android:hint="说说你的看法"
+                    android:paddingLeft="@dimen/spacing_small"
+                    android:paddingRight="@dimen/spacing_small"
+                    android:textColorHint="@color/black_hint"
+                    android:textSize="@dimen/txt_normal_content" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/btn_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/ic_tool_comment"
+                        android:paddingLeft="@dimen/spacing_default"
+                        android:paddingRight="@dimen/spacing_default"
+                        android:text="评论"
+                        android:textColor="@color/black_secondary"
+                        android:textSize="@dimen/txt_normal_content" />
+
+                    <TextView
+                        android:id="@+id/tv_comment_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@id/btn_comment"
+                        android:layout_marginRight="@dimen/spacing_small"
+                        android:background="@drawable/nl_bg_red_corner"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/spacing_small"
+                        android:paddingRight="@dimen/spacing_small"
+                        android:singleLine="true"
+                        android:text="0"
+                        android:textColor="@color/white_normal"
+                        android:textSize="@dimen/txt_normal_content" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/btn_collect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/nl_selector_collection"
+                    android:paddingLeft="@dimen/spacing_default"
+                    android:paddingRight="@dimen/spacing_default"
+                    android:text="收藏"
+                    android:textColor="@color/black_secondary"
+                    android:textSize="@dimen/txt_normal_content" />
+
+                <TextView
+                    android:id="@+id/btn_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_tool_share"
+                    android:paddingLeft="@dimen/spacing_default"
+                    android:paddingRight="@dimen/spacing_default"
+                    android:text="分享"
+                    android:textColor="@color/black_secondary"
+                    android:textSize="@dimen/txt_normal_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.kingyon.newslib.views.JudgeLinearLayout
+            android:id="@+id/line_tool_ed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/spacing_small"
+            android:paddingLeft="@dimen/spacing_default"
+            android:paddingRight="@dimen/spacing_default"
+            android:visibility="gone"
+            android:paddingTop="@dimen/spacing_small">
+
+            <EditText
+                android:id="@+id/ed_input"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_avatar"
+                android:layout_marginRight="@dimen/spacing_small"
+                android:layout_weight="1"
+                android:background="@drawable/nl_edit_bg"
+                android:gravity="center_vertical"
+                android:hint="说说你的看法"
+                android:paddingLeft="@dimen/spacing_small"
+                android:paddingRight="@dimen/spacing_small"
+                android:textColorHint="@color/black_hint"
+                android:textSize="@dimen/txt_normal_content" />
+
+            <TextView
+                android:id="@+id/btn_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/nl_selector_btn"
+                android:paddingBottom="@dimen/spacing_small"
+                android:paddingLeft="@dimen/spacing_default"
+                android:paddingRight="@dimen/spacing_default"
+                android:paddingTop="@dimen/spacing_small"
+                android:text="发送"
+                android:textColor="@color/white_normal"
+                android:textSize="@dimen/txt_normal_content" />
+        </com.kingyon.newslib.views.JudgeLinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>
+

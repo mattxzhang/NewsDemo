@@ -24,7 +24,7 @@ import java.util.List;
  * define by yourself,but also must include SwipeRefreshLayout(id must be pre_layout_refresh) and RecyclerView(id must be pre_rc_list).
  */
 public abstract class BaseRefreshFragment<T> extends BaseFragment implements SwipeRefreshHelper.OnSwipeRefreshListener, OnLoadMoreListener,
-        MultiItemTypeAdapter.OnItemClickListener {
+        RecyclerAdapterWithHF.OnItemClickListener {
     protected SwipeRefreshLayout mRefreshLayout;
     protected RecyclerView mRecyclerView;
     protected SwipeRefreshHelper mSwipeRefreshHelper;
@@ -57,6 +57,7 @@ public abstract class BaseRefreshFragment<T> extends BaseFragment implements Swi
 
         mRecyclerView.setLayoutManager(getLayoutManager());
         initAdapter();
+        mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
 
         mSwipeRefreshHelper = new SwipeRefreshHelper(mRefreshLayout);
@@ -88,7 +89,6 @@ public abstract class BaseRefreshFragment<T> extends BaseFragment implements Swi
 
     private void initAdapter() {
         mInnerAdapter = getAdapter();
-        mInnerAdapter.setOnItemClickListener(this);
         initEmptyView();
         initLoadMoreView();
     }
@@ -125,7 +125,8 @@ public abstract class BaseRefreshFragment<T> extends BaseFragment implements Swi
     }
 
     @Override
-    public void onItemClick(View view, RecyclerView.ViewHolder holder, Object item, int position) {
+    public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
+
     }
 
     protected abstract int getEmptyViewId();

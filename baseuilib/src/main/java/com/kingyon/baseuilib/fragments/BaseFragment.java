@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kingyon.baseuilib.activities.BaseActivity;
 import com.kingyon.baseuilib.entities.CommonEntity;
+import com.kingyon.baseuilib.views.ProgressDialog;
 
 /**
  * Created by arvin on 2016/7/29 16:19
@@ -17,6 +19,7 @@ public abstract class BaseFragment extends Fragment {
      */
     protected CommonEntity mUtil;
     protected View mRoot;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,24 @@ public abstract class BaseFragment extends Fragment {
 
     public void showToast(String message) {
         mUtil.showToast(message);
+    }
+
+    public void showProgress(String message) {
+        if (progressDialog != null) {
+            progressDialog.setMessage(message != null ? message
+                    : "");
+            progressDialog.show();
+        } else {
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage(message != null ? message : "");
+            progressDialog.show();
+        }
+    }
+
+    public void hideProgress() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 
     public void onRestart() {

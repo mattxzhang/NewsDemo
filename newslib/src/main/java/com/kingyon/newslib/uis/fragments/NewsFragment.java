@@ -2,8 +2,11 @@ package com.kingyon.newslib.uis.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.kingyon.baseuilib.fragments.BaseRefreshFragment;
+import com.kingyon.baseuilib.utils.ConstantUtil;
 import com.kingyon.netlib.callback.AbsAPICallback;
 import com.kingyon.netlib.entitys.PageListEntity;
 import com.kingyon.netlib.exception.ApiException;
@@ -11,8 +14,10 @@ import com.kingyon.newslib.R;
 import com.kingyon.newslib.greendao.entities.ColumnEntity;
 import com.kingyon.newslib.greendao.entities.NewsEntity;
 import com.kingyon.newslib.greendao.utils.NewsService;
+import com.kingyon.newslib.uis.activities.NewsDetailActivity;
 import com.kingyon.newslib.uis.adapters.NewsAdapter;
 import com.kingyon.newslib.utils.NewsTypeUtil;
+import com.kingyon.refresh.recyclerview.RecyclerAdapterWithHF;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.List;
@@ -88,5 +93,14 @@ public class NewsFragment extends BaseRefreshFragment<NewsEntity> {
                 refreshOk(hasMore);
             }
         });
+    }
+
+    @Override
+    public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
+        super.onItemClick(adapter, vh, position);
+        Bundle data = new Bundle();
+        data.putInt(ConstantUtil.PASS_EXTRA, NewsDetailActivity.ARTICLE);
+        data.putParcelable(ConstantUtil.PASS_VALUE, mItems.get(position));
+        mUtil.startActivityWithAnim(NewsDetailActivity.class, data);
     }
 }
