@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="is_title_color">#DE172E</color>
+    <color name="is_bottom_color">#DE172E</color>
+    <color name="is_bg_color">#DE172E</color>
+    <color name="is_ensure_color">#44BF1A</color>
+    <color name="is_ensure_unenable_color">#337523</color>
+    <color name="is_text_enable_color">#828282</color>
+    <color name="is_text_color">#C7C7C7</color>
+    <color name="is_transparent">#ffffffff</color>
+</resources>

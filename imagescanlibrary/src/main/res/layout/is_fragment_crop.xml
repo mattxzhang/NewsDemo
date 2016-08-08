@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <net.arvin.imagescan.views.ClipImageLayout
+        android:id="@+id/clipImageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/is_title_bar"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_height="@dimen/is_bar_height_size"
+        android:background="@color/is_title_color">
+
+        <ImageView
+            android:id="@+id/is_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/is_alph_click_style"
+            android:contentDescription="@string/app_name"
+            android:paddingBottom="15dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/is_back_white" />
+
+        <View
+            android:id="@+id/is_divider_line"
+            android:layout_width="@dimen/is_divider_middle"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/is_back"
+            android:background="@android:color/white" />
+
+        <TextView
+            android:id="@+id/is_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/is_divider_line"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="裁剪"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/is_text_eighteen" />
+
+        <Button
+            android:id="@+id/is_choose_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/is_button_bg"
+            android:enabled="false"
+            android:padding="5dp"
+            android:text="完成"
+            android:textColor="@drawable/is_button_text_style"
+            android:textSize="@dimen/is_text_fifteen"/>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/is_selectedImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter" />
+
+        <net.arvin.imagescan.views.CropView
+            android:id="@+id/is_cropView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+</RelativeLayout>

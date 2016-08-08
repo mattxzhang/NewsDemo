@@ -1,1 +1,1 @@
-include ':app', ':netlib', ':newslib', ':baseuilib',':daogenerator'
+include ':app', ':netlib', ':newslib', ':baseuilib', ':daogenerator', ':imagescanlibrary'
